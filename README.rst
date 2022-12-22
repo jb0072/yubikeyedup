@@ -1,6 +1,11 @@
-Yet Another YubiKey OTP Validation Server
-=========================================
+Fork of Alessio Periloso's Yet Another YubiKey OTP Validation Server
+====================================================================
+Original can be found at https://github.com/scumjr/yubikeyedup
 
+This fork has been tested on Kali linux and modified to run on local host only.
+
+Original README
+===============
 Several other implementations are available. Some of them are not secure enough:
 
  * `YubiServe <https://code.google.com/p/yubico-yubiserve>`_ (Python). `SQL
@@ -21,7 +26,7 @@ seems not to be designed with security in mind. Copy-and-paste programming made
 code reviews nearly impossible, there is no protection against SQL injection,
 etc.
 
-This fork was given a new name to make it easy for people to differentiate from
+The original fork was given a new name to make it easy for people to differentiate from
 the original project.
 
 
@@ -94,13 +99,8 @@ Configure OpenSSH::
         AuthenticationMethods        publickey,password
 
 
-TODO
-====
-
-OATH/HOTP is not supported at present.
-
-
 Original author
 ===============
 
  * Alessio Periloso <mail *at* periloso.it>
+
