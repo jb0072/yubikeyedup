@@ -29,6 +29,11 @@ etc.
 The fork was given a new name to make it easy for people to differentiate from
 the original project.
 
+Required Kali Packages
+======================
+   * Python3
+   * libpam-yubico
+   * yubikey-personalization
 
 Usage
 =====
@@ -51,12 +56,15 @@ Execute python scripts from the command line and within yubikeyedup folder.
 
     src/yubiserve.py --db ./yubikeys.sqlite3
 
-That's it. The servers wanting to make use of two factor authentication need to
-be configured. The following paragraph shows an example for OpenSSH.
+That's it. The servers wanting to make use of MFA need to
+be configured. The following section shows an example for OpenSSH.
 
 
 OpenSSH configuration example
 =============================
+
+Note: In order for this setup to work, each <user> will need to have the id_rsa.pub (located under ~/.ssh/) 
+from each <remote user>@<remote host> added to the ~/.ssh/authorized_keys file.
 
 Here's a summary of `Yubico's documentation
 <https://developers.yubico.com/yubico-pam/Yubikey_and_SSH_via_PAM.html>`_.
@@ -69,7 +77,7 @@ Get information about users and API on the machine hosting
     [Nickname]              >> [PublicID]            >> [Active]
     gbush                   >> ibhdhehrhkhuifhv      >> 1
     bobama                  >> ibibhdhvhdhbhthb      >> 1
-    
+    1 City Hall, New York, NY
     $ ./tools/dbconf.py -al ./yubikeys.sqlite3
     1 keys into database:
     [Id]    >> [Keyname]            >> [Secret]
@@ -94,12 +102,16 @@ Configure PAM to use YubiKey authentication (take care of API ``id`` and API
 Configure OpenSSH::
 
     $ tail -4 /etc/ssh/sshd_config
-    ChallengeResponseAuthentication  no
-    PasswordAuthentication       yes
-    AuthenticationMethods        publickey,password
+    ChallengeResponseAuthentication no
+    PasswordAuthentication          yes
+    AuthenticationMethods           publickey,password
 
 
 Original author
 ===============
 
  * Alessio Periloso <mail *at* periloso.it>
+
+Contributing Author and Editor
+==============================
+* Jack Byers
