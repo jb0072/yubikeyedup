@@ -137,7 +137,7 @@ def stop_signal_handler(signum, frame):
 if __name__ == '__main__':
     parser = optparse.OptionParser('Usage: %prog [options]')
     parser.add_option('-d', '--db', default='./yubikeys.sqlite3', dest='db')
-    parser.add_option('-a', '--address', default='0.0.0.0', dest='host')
+    parser.add_option('-a', '--address', default='127.0.0.1', dest='host')
     parser.add_option('-p', '--port', default='8000', dest='port')
     (options, args) = parser.parse_args()
     sqlite_db = options.db
