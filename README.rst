@@ -107,7 +107,7 @@ Configure OpenSSH::
     AuthenticationMethods           publickey,password
 
 
-Original author
+Original Author
 ===============
 
  * Alessio Periloso <mail *at* periloso.it>
