@@ -112,7 +112,7 @@ Original author
 
  * Alessio Periloso <mail *at* periloso.it>
 
-Contributing Author and Editor
-==============================
+Contributing Author and Editor of this fork
+===========================================
 
-* Jack Byers
+Jack Byers
