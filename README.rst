@@ -60,7 +60,7 @@ That's it. The servers wanting to make use of MFA need to
 be configured. The following section shows an example for OpenSSH.
 
 
-OpenSSH configuration example
+OpenSSH Configuration Example
 =============================
 
 Note: In order for this setup to work, each <user> will need to have the id_rsa.pub (located under ~/.ssh/) 
