@@ -34,20 +34,20 @@ Usage
 =====
 Execute python scripts from the command line and within yubikeyedup folder.
 
-Create a new database::
+1. Create a new database::
 
     tools/dbcreate.py ./yubikeys.sqlite3
 
-Plug and flash the YubiKeys (keys are also written to the database)::
+2. Plug and flash the YubiKeys (keys are also written to the database)::
 
     tools/flash.py gbush ./yubikeys.sqlite3
     tools/flash.py bobama ./yubikeys.sqlite3
 
-Add a new API key (here, the API key name is ``users``)::
+3. Add a new API key (here, the API key name is ``users``)::
 
     tools/dbconf.py -aa users ./yubikeys.sqlite3
 
-Run the server::
+4. Run the server::
 
     src/yubiserve.py --db ./yubikeys.sqlite3
 
