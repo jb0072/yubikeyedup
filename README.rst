@@ -2,10 +2,10 @@ Fork of Alessio Periloso's Yet Another YubiKey OTP Validation Server
 ====================================================================
 Original can be found at https://github.com/scumjr/yubikeyedup
 
-This fork has been tested on Kali linux and modified to run on local host only.
+This fork has been tested on Kali linux and modified to serve local host only.
 
-Original README
 ===============
+
 Several other implementations are available. Some of them are not secure enough:
 
  * `YubiServe <https://code.google.com/p/yubico-yubiserve>`_ (Python). `SQL
@@ -26,29 +26,30 @@ seems not to be designed with security in mind. Copy-and-paste programming made
 code reviews nearly impossible, there is no protection against SQL injection,
 etc.
 
-The original fork was given a new name to make it easy for people to differentiate from
+The fork was given a new name to make it easy for people to differentiate from
 the original project.
 
 
 Usage
 =====
+Execute python scripts from the command line and within yubikeyedup folder.
 
 Create a new database::
 
-    $ ./tools/dbcreate.py ./yubikeys.sqlite3
+    tools/dbcreate.py ./yubikeys.sqlite3
 
 Plug and flash the YubiKeys (keys are also written to the database)::
 
-    $ ./tools/flash.py gbush ./yubikeys.sqlite3
-    $ ./tools/flash.py bobama ./yubikeys.sqlite3
+    tools/flash.py gbush ./yubikeys.sqlite3
+    tools/flash.py bobama ./yubikeys.sqlite3
 
-Add a new API key (here, the API key name is ``developers``)::
+Add a new API key (here, the API key name is ``users``)::
 
-    $ ./tools/dbconf.py -aa developers ./yubikeys.sqlite3
+    tools/dbconf.py -aa users ./yubikeys.sqlite3
 
 Run the server::
 
-    $ ./src/yubiserve.py --db ./yubikeys.sqlite3
+    src/yubiserve.py --db ./yubikeys.sqlite3
 
 That's it. The servers wanting to make use of two factor authentication need to
 be configured. The following paragraph shows an example for OpenSSH.
@@ -63,7 +64,7 @@ Here's a summary of `Yubico's documentation
 Get information about users and API on the machine hosting
 ``yubikeys.sqlite3``::
 
-    $ ./tools/dbconf.py -yl ./yubikeys.sqlite3
+    $ tools/dbconf.py -yl ./yubikeys.sqlite3
     2 keys into database:
     [Nickname]              >> [PublicID]            >> [Active]
     gbush                   >> ibhdhehrhkhuifhv      >> 1
@@ -88,19 +89,17 @@ Configure PAM to use YubiKey authentication (take care of API ``id`` and API
     @include yubi-auth
     
     $ cat /etc/pam.d/yubi-auth
-    auth       required     pam_yubico.so authfile=/etc/yubimap id=1 key=ckFsWU5scVNXRjVZc3lJUmpIVzU= url=http://yubikeyval.local:8000/wsapi/2.0/verify?id=%d&otp=%s mode=client token_id_length=16
+    auth       required     pam_yubico.so authfile=/etc/yubimap id=1 key=ckFsWU5scVNXRjVZc3lJUmpIVzU= url=http://127.0.0.1:8000/wsapi/2.0/verify?id=%d&otp=%s mode=client token_id_length=16 debug debug_file=/var/log/yubi-auth.log
 
 Configure OpenSSH::
 
     $ tail -4 /etc/ssh/sshd_config
     ChallengeResponseAuthentication  no
-    Match User george,barack
-        PasswordAuthentication       yes
-        AuthenticationMethods        publickey,password
+    PasswordAuthentication       yes
+    AuthenticationMethods        publickey,password
 
 
 Original author
 ===============
 
  * Alessio Periloso <mail *at* periloso.it>
-
